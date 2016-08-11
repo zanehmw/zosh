@@ -1,1 +1,2 @@
-#something here
+# zosh
+Coding Job Competition App
