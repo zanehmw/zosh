@@ -1,1 +1,6 @@
-console.log("working")
+"use strict";
+
+(function(){
+  angular
+  .module("zosh", [])
+})();

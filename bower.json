@@ -1,0 +1,20 @@
+{
+  "name": "zosh",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Zaneh Williams <zanehmw@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/zanehmw/zosh",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}
