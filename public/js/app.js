@@ -40,6 +40,11 @@
   function productsIndexCtrl(Product){
     var vm    = this;
     vm.products   = Product.query();
+    vm.create     = function(){
+      Product.save(vm.newProduct, function(response){
+        vm.products.push(response);
+      });
+    }
   }
   productsShowCtrl.$inject = ["$stateParams"];
   function productsShowCtrl($stateParams){
