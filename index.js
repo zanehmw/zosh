@@ -1,17 +1,16 @@
 var express = require("express");
+var mongoose = require("./db/connection");
 var app = express();
+
+var Product = mongoose.model("Product");
 
 app.use("/", express.static("public"));
 app.use("/", express.static("bower_components"));
 
 app.get("/api/products", function(req, res){
-  res.json([
-    {name: "Product1"},
-    {name: "Product2"},
-    {name: "Product3"},
-    {name: "Product4"}
-
-  ]);
+  Product.find().then(function(products){
+    res.json(products);
+  });
 });
 
 app.get("/*", function(req, res){
