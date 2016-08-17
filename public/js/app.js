@@ -32,7 +32,9 @@
   }
   productFactory.$inject = ["$resource"];
   function productFactory($resource){
-    var Product = $resource("/api/products/:name");
+    var Product = $resource("/api/products/:name", {},{
+      update: {method: "PATCH"}
+    });
     return Product;
 
   }
@@ -48,7 +50,7 @@
   }
 
   productsShowCtrl.$inject = ["$stateParams", "Product", "$state"];
-  function productsShowCtrl($stateParams, Product){
+  function productsShowCtrl($stateParams, Product, $state){
     var vm    = this;
     vm.product  = Product.get($stateParams);
     vm.delete   = function(){
@@ -56,6 +58,11 @@
         $state.go("productsIndex");
 
     });
+    }
+    vm.update = function(){
+      Product.update($stateParams, vm.product, function(response){
+        $state.go("productsShow", response);
+      });
     }
   }
 })();

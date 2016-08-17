@@ -26,6 +26,12 @@ app.delete("/api/products/:name", function(req, res){
     res.json({success: true});
   });
 });
+app.patch("/api/products/:name", function(req, res){
+  Product.findOneAndUpdate(req.params,
+  req.body, {new: true}).then(function(product){
+    res.json(product);
+  });
+});
 
 
 
