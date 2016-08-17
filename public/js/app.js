@@ -16,7 +16,7 @@
     $stateProvider
     .state("productsIndex", {
       url:          "/",
-      templateUrl:     "/html/products-index.html",
+      templateUrl:  "/html/products-index.html",
       controller:   "productsIndexController",
       controllerAs: "pIndexVM"
     })
@@ -47,11 +47,15 @@
     }
   }
 
-  productsShowCtrl.$inject = ["$stateParams", "Product"];
+  productsShowCtrl.$inject = ["$stateParams", "Product", "$state"];
   function productsShowCtrl($stateParams, Product){
     var vm    = this;
-    vm.product  = Product.get($stateParams, function(response){
+    vm.product  = Product.get($stateParams);
+    vm.delete   = function(){
+    Product.remove ($stateParams, function(){
+        $state.go("productsIndex");
 
     });
+    }
   }
 })();

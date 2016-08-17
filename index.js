@@ -21,6 +21,14 @@ app.get("/api/products/:name", function(req, res){
   });
 });
 
+app.delete("/api/products/:name", function(req, res){
+  Product.findOneAndRemove(req.params).then(function(){
+    res.json({success: true});
+  });
+});
+
+
+
 app.post("/api/products", function(req, res){
   console.log(req.body)
   Product.create(req.body).then(function(product){
