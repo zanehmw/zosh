@@ -15,6 +15,11 @@ app.get("/api/products", function(req, res){
   });
 });
 
+app.get("/api/products/:name", function(req, res){
+  Product.findOne(req.params).then(function(product){
+    res.json(product);
+  });
+});
 
 app.post("/api/products", function(req, res){
   console.log(req.body)
