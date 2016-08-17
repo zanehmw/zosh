@@ -16,7 +16,7 @@
     $stateProvider
     .state("productsIndex", {
       url:          "/",
-      templateUrl:     "/html/products-index.html",
+      templateUrl:  "/html/products-index.html",
       controller:   "productsIndexController",
       controllerAs: "pIndexVM"
     })
@@ -32,7 +32,9 @@
   }
   productFactory.$inject = ["$resource"];
   function productFactory($resource){
-    var Product = $resource("/api/products");
+    var Product = $resource("/api/products/:name", {},{
+      update: {method: "PATCH"}
+    });
     return Product;
 
   }
@@ -46,9 +48,21 @@
       });
     }
   }
-  productsShowCtrl.$inject = ["$stateParams"];
-  function productsShowCtrl($stateParams){
+
+  productsShowCtrl.$inject = ["$stateParams", "Product", "$state"];
+  function productsShowCtrl($stateParams, Product, $state){
     var vm    = this;
-    vm.product  = $stateParams;
+    vm.product  = Product.get($stateParams);
+    vm.delete   = function(){
+    Product.remove ($stateParams, function(){
+        $state.go("productsIndex");
+
+    });
+    }
+    vm.update = function(){
+      Product.update($stateParams, vm.product, function(response){
+        $state.go("productsShow", response);
+      });
+    }
   }
 })();

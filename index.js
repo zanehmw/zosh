@@ -15,6 +15,25 @@ app.get("/api/products", function(req, res){
   });
 });
 
+app.get("/api/products/:name", function(req, res){
+  Product.findOne(req.params).then(function(product){
+    res.json(product);
+  });
+});
+
+app.delete("/api/products/:name", function(req, res){
+  Product.findOneAndRemove(req.params).then(function(){
+    res.json({success: true});
+  });
+});
+app.patch("/api/products/:name", function(req, res){
+  Product.findOneAndUpdate(req.params,
+  req.body, {new: true}).then(function(product){
+    res.json(product);
+  });
+});
+
+
 
 app.post("/api/products", function(req, res){
   console.log(req.body)
